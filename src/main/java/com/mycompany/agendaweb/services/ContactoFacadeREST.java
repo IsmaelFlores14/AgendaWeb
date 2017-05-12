@@ -38,32 +38,6 @@ public class ContactoFacadeREST extends AbstractFacade<Contacto> {
         super(Contacto.class);
     }
 
-    @POST
-    @Override
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public String create(Contacto entity) {
-        String resultado = super.create(entity);
-        return String.format(JSON_RESPONSE, entity.getId(), entity.getNombre(), entity.getMd5(),"insert", resultado);
-    }
-
-    @PUT
-    @Path("{id}")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public String edit(@PathParam("id") Integer id, Contacto entity) {
-        String resultado = super.edit(entity);
-        return String.format(JSON_RESPONSE, entity.getId(), entity.getNombre(), entity.getMd5(), "update", resultado);
-    }
-
-    @DELETE
-    @Path("{id}")
-    public String remove(@PathParam("id") Integer id) {
-        String resultado = super.remove(super.find(id));
-        String mensaje = "{\"Id\":%d, \"operation\":\"%s\", \"resultado\":\"%s\"}";
-        return String.format(mensaje, id, "delete", resultado);
-    }
-
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -77,14 +51,40 @@ public class ContactoFacadeREST extends AbstractFacade<Contacto> {
     public List<Contacto> findAll() {
         return super.findAll();
     }
+    
+    @POST
+    @Override
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String create(Contacto entity) {
+        String resultado = super.create(entity);
+        return String.format(JSON_RESPONSE, entity.getId(), entity.getNombre(), entity.getMd5(),"insert", resultado);
+    }
 
-    @GET
+    /*@PUT
+    @Path("{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String edit(@PathParam("id") Integer id, Contacto entity) {
+        String resultado = super.edit(entity);
+        return String.format(JSON_RESPONSE, entity.getId(), entity.getNombre(), entity.getMd5(), "update", resultado);
+    }*/
+
+    /*@DELETE
+    @Path("{id}")
+    public String remove(@PathParam("id") Integer id) {
+        String resultado = super.remove(super.find(id));
+        String mensaje = "{\"Id\":%d, \"operation\":\"%s\", \"resultado\":\"%s\"}";
+        return String.format(mensaje, id, "delete", resultado);
+    }*/
+
+    /*@GET
     @Override
     @Path("propietario/{owner}")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Contacto> findAllByOwner(@PathParam("owner") String owner) {
         return super.findAllByOwner(owner);
-    }
+    }*/
     
     @GET
     @Path("{from}/{to}")
@@ -93,12 +93,12 @@ public class ContactoFacadeREST extends AbstractFacade<Contacto> {
         return super.findRange(new int[]{from, to});
     }
 
-    @GET
+    /*@GET
     @Path("count")
     @Produces(MediaType.TEXT_PLAIN)
     public String countREST() {
         return String.valueOf(super.count());
-    }
+    }*/
 
     @Override
     protected EntityManager getEntityManager() {
